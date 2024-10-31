@@ -1,0 +1,20 @@
+#!/bin/bash
+
+TASK_FILE="tasks.txt"
+touch $TASK_FILE
+
+while true; do
+    echo "1. Add Task"
+    echo "2. View Tasks"
+    echo "3. Remove Task"
+    echo "4. Exit"
+    read -p "Choose an option: " choice
+
+    case $choice in
+        1) read -p "Enter task: " task; echo "$task" >> $TASK_FILE; echo "Task added: $task" ;;
+        2) echo "Current Tasks:"; cat $TASK_FILE ;;
+        3) read -p "Enter task to remove: " task; grep -v -e "^$task$" $TASK_FILE > temp.txt && mv temp.txt $TASK_FILE; echo "Task removed: $task" ;;
+        4) exit ;;
+        *) echo "Invalid option." ;;
+    esac
+done
